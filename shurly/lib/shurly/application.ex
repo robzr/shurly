@@ -1,19 +1,16 @@
 defmodule Shurly.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
-  @moduledoc false
+  @moduledoc "OTP Application specification for Shurly URL Shortener"
 
-  use Application
-
-  @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: Shurly.Worker.start_link(arg)
-      # {Shurly.Worker, arg}
+      Plug.Cowboy.child_spec(
+        scheme: :http,
+        plug: Shurly.Endpoint,
+        options: [port: Shurly.Config.shurly_port]
+      ),
+      {Redix, {Shurly.Config.redis_url, [name: :redix]}}
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Shurly.Supervisor]
     Supervisor.start_link(children, opts)
   end
