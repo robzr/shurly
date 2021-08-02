@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  redis:
+    command: "--appendonly yes"
+    container_name: redis
+    image: redis:6-alpine 
+    ports:
+      - 6379:6379
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+volumes:
+  redis-data:
