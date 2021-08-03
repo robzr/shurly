@@ -2,12 +2,24 @@ version: "3.9"
 services:
   redis:
     command: "--appendonly yes"
-    container_name: redis
     image: redis:6-alpine 
     ports:
+#      - 6379
       - 6379:6379
     restart: unless-stopped
     volumes:
       - redis-data:/data
+  shurly:
+    build:
+      args:
+        hashing_algorithm: sha256
+        min_slug_length: 5
+        port: 8080
+        redirect_code: 302
+        redis_url: redis://redis:6379
+      context: .
+    ports:
+      - 8080:8080
+    restart: unless-stopped
 volumes:
   redis-data:
