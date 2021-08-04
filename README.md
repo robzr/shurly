@@ -45,7 +45,6 @@ shurly_validate_slug() {
   local url=$2
 
   local encoded=$(echo -n "$url" | sha256sum | cut -f1 -d\  | xxd -r -p | base64 | tr +/ -_)
-  echo encoded = $encoded
   [[ "$encoded" != "${encoded#${slug}}" ]]
 }
 
