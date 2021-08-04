@@ -88,7 +88,7 @@ Returns:
 | Variable                   | Default                | Description                           |
 |----------------------------|------------------------|---------------------------------------|
 | `SHURLY_HASHING_ALGORITHM` | sha256                 | Hashing algorithm used to build slug  |
-| `SHURLY_MIN_SLUG_LENGTH`   | 6                      | Minimum slug length allowed by server |
+| `SHURLY_MIN_SLUG_LENGTH`   | 5                      | Minimum slug length allowed by server |
 | `SHURLY_PORT`              | 8080                   | TCP port to listen on                 |
 | `SHURLY_REDIRECT_CODE`     | 302                    | HTTP code issued on redirects         |
 | `REDIS_URL`                | redis://localhost:6379 | Redis server URL                      |

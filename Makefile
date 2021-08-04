@@ -5,12 +5,12 @@ setup:
 server:
 	docker-compose up --build
 
-# WARNING: this is a destructive operation as it will remove the persistent volume, which loses slugs
+# WARNING: this is a destructive operation as it will remove the persistent slug data
 clean:
 	docker-compose down --rmi local || true
 	docker volume rm -f shurly_redis-data || true
 
-# WARNING: this is a destructive operation as it will remove the persistent volume, which loses slugs
+# WARNING: this is a destructive operation as it will remove the persistent slug data
 test:
 	# Cleaning up...
 	docker-compose down --rmi local || true
@@ -19,7 +19,7 @@ test:
 	docker-compose up --build --detach
 	# Waiting for app to start...
 	sleep 10
-	# Running endpoint tests
+	# Running endpoint tests...
 	curl -si -X GET http://127.0.0.1:8080/ | egrep -q '^HTTP.* 200 ' 
 	curl -si -X GET http://127.0.0.1:8080/v1/url | egrep -q '^HTTP.* 200 ' 
 	curl -si -X GET http://127.0.0.1:8080/KhtAJ | egrep -q '^HTTP.* 404 ' 

@@ -1,7 +1,5 @@
 defmodule Shurly.Config do
-  @moduledoc """
-  Centralized location for configurable values.
-  """
+  @moduledoc "Centralized location for configurable values."
 
   def hashing_algorithm do
     if env_val = System.get_env("SHURLY_HASHING_ALGORITHM") do
