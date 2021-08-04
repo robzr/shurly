@@ -1,5 +1,5 @@
 # shurly
-Shurly is a SHA based URL shortener that allows for offline slug validation with tunable confidence. 
+SHA based URL shortener that allows for offline slug validation with tunable confidence. 
 
 ## Overview
 Shurly is written in Elixir, using the [Cowboy HTTP server plugin with Poison for JSON parsing][cowboy-poison], and 

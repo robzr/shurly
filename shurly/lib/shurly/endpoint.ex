@@ -26,7 +26,7 @@ defmodule Shurly.Endpoint do
 
   match "/v1/url", via: :put do
     {status, body} = if is_map(conn.body_params) && Map.has_key?(conn.body_params, "url") do
-                       if String.match?(conn.body_params["url"], ~r/^https?:\/\/.+/i) do
+                       if Shurly.Resolver.is_valid_looking_url?(conn.body_params["url"]) do
                          {200, Poison.encode!(%{slug: Shurly.Resolver.register_url(conn.body_params["url"])})}
                        else
                          {400, Poison.encode!(%{response: "Invalid URL"})}

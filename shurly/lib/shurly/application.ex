@@ -12,6 +12,9 @@ defmodule Shurly.Application do
     ]
 
     opts = [strategy: :one_for_one, name: Shurly.Supervisor]
+
+    Logger.configure([level: :info])
+
     Supervisor.start_link(children, opts)
   end
 end
