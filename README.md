@@ -6,18 +6,18 @@ Shurly is written in Elixir, using the [Cowboy HTTP server plugin with Poison fo
 [Redix][redix] for communicating with the storage backend. [Redis][redis] is used as a persistent storage backend.
 
 ### Hashing and Encoding
-In order to balance speed, entropy, and ease of offline validation, SHA-256 was chosen as the hashing algorithm. The 
-hashed value is encoded with [URL safe Base64][RFC4648-5], which covers 97% of the [RFC-3986 defined unreserved
-character set for URIs][RFC3986-2.3]. This achieves an entropy-dense, RFC-compliant encoding scheme that is easily
-verifiable offline in modern operating systems and languages. If a collision is found when a new URL is submitted for
-shortening, the length is incremented until an available slug is found.
+In order to balance speed, entropy, and ease of offline validation, SHA-256 was chosen as the default hashing
+algorithm. The hashed value is encoded with [URL safe Base64][RFC4648-5], which covers 97% of the [RFC-3986 defined
+unreserved character set for URIs][RFC3986-2.3]. This achieves an entropy-dense, RFC-compliant encoding scheme that
+is easily verifiable offline in modern operating systems and languages. If a collision is found when a new URL is
+submitted for shortening, the length is incremented until an available slug is found.
 
 ### Minimum Slug Length
 Since the slug is a truncated hash, the liklihood of collisions increases as the slug length decreases. The server
 administrator can set the minimum slug length with the `SHURLY_MIN_SLUG_LENGTH` environment variable to accomodate 
-the desired slug entropy, which determines confidence in offline validation, and the degree of obscurity for probing
-slugs. The probability would be calculated for any two unique URLs validating to the same slug with the formula
-`50 / 64^slug_length` (percent), or 1 in `64^slug_length / 2`.
+the desired slug entropy, which determines confidence in offline validation, and the degree of obscurity. The 
+probability would be calculated for any two unique URLs validating to the same slug with the formula `50 /
+64^slug_length` (percentage), or 1 in `64^slug_length / 2`.
 
 | Number                  | Description                               |
 |------------------------:|-------------------------------------------|
@@ -74,14 +74,15 @@ Returns:
 }
 ```
 
-### `GET /v1/url/<slug>` - get URL in JSON format without redirection
+### `GET /v1/url/<slug>` - get URL in JSON format
+Returns:
 ```
 {
   "url": "http://example.com/"
 }
 ```
 
-### `GET /<slug>` - redirects to URL or returns 404 if slug does not exist
+### `GET /<slug>` - redirects to URL, or returns 404 if slug does not exist
 
 ## Environment Variables
 | Variable                   | Default                | Description                           |
@@ -98,7 +99,7 @@ Returns:
 - Add Redis connection pools and hash partitioning for scalability
 - PBKDF2 key derivation function for security sensitive applications
 - TSDB plugin for Logger for debug and query logs
-- optimize, refactor
+- Optimize, refactor
 
 [rfc3986-2.3]: https://datatracker.ietf.org/doc/html/rfc3986#section-2.3
 [rfc4648-5]: https://datatracker.ietf.org/doc/html/rfc4648#section-5
