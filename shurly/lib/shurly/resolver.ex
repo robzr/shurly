@@ -9,7 +9,7 @@ defmodule Shurly.Resolver do
   require Logger
 
   def is_valid_looking_slug?(slug) do
-    String.match?(slug, ~r/^[a-zA-Z0-9_-]/) and
+    String.match?(slug, ~r/^[a-zA-Z0-9_-]+$/) and
       String.length(slug) >= Shurly.Config.min_slug_length and
       String.length(slug) <= @max_slug_length
   end
