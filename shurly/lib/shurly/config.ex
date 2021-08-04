@@ -1,5 +1,3 @@
-# TODO: optimize config loading so we are not converting values every time these functions are called
-
 defmodule Shurly.Config do
   @moduledoc """
   Centralized location for configurable values.
