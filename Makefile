@@ -5,12 +5,12 @@ setup:
 server:
 	docker-compose up --build
 
-# WARNING: this is a destructive operation as it will remove the persistant volume, which loses slugs
+# WARNING: this is a destructive operation as it will remove the persistent volume, which loses slugs
 clean:
 	docker-compose down --rmi local || true
 	docker volume rm -f shurly_redis-data || true
 
-# WARNING: this is a destructive operation as it will remove the persistant volume, which loses slugs
+# WARNING: this is a destructive operation as it will remove the persistent volume, which loses slugs
 test:
 	# Cleaning up...
 	docker-compose down --rmi local || true
