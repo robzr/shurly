@@ -1,9 +1,6 @@
 # TODO: handle Redis exceptions gracefully
 
 defmodule Shurly.Resolver do
-  # If we are getting collisions with 60 bits, it's a bug
-  @max_slug_length 10
-
   @moduledoc "Functions for registering and resolving slugs."
 
   require Logger
@@ -11,7 +8,7 @@ defmodule Shurly.Resolver do
   def is_valid_looking_slug?(slug) do
     String.match?(slug, ~r/^[a-z0-9_-]+$/i) and
       String.length(slug) >= Shurly.Config.min_slug_length() and
-      String.length(slug) <= @max_slug_length
+      String.length(slug) <= Shurly.Config.max_slug_length()
   end
 
   # Must be http(s), RFC-1123 / RFC-952 compliant host/domain names or IPs, and include a trailing `/` to meet coding
@@ -21,7 +18,14 @@ defmodule Shurly.Resolver do
   end
 
   def register_url(url) do
-    register_url(url, hash_encode_url(url))
+    register_url(
+      url,
+      String.slice(
+        hash_encode_url(url),
+        0,
+        Shurly.Config.max_slug_length()
+      )
+    )
   end
 
   def resolve_slug(slug) do
