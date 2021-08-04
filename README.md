@@ -16,8 +16,7 @@ submitted for shortening, the length is incremented until an available slug is f
 Since the slug is a truncated hash, the liklihood of collisions increases as the slug length decreases. The server
 administrator can set the minimum slug length with the `SHURLY_MIN_SLUG_LENGTH` environment variable to accomodate 
 the desired slug entropy, which determines confidence in offline validation, and the degree of obscurity. The 
-probability would be calculated for any two unique URLs validating to the same slug with the formula `50 /
-64^slug_length` (percentage), or 1 in `64^slug_length / 2`.
+probability for any two unique URLs validating to the same slug can be calculated as 1 in `64^slug_length / 2`.
 
 | Number                  | Description                               |
 |------------------------:|-------------------------------------------|
