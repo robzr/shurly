@@ -10,11 +10,10 @@ ENV SHURLY_MIN_SLUG_LENGTH=${min_slug_length}
 ENV SHURLY_HASHING_ALGORITHM=${hashing_algorithm}
 ENV SHURLY_PORT=${port}
 ENV SHURLY_REDIRECT_CODE=${redirect_code}
-RUN mkdir /app
-COPY shurly/ /app
 WORKDIR /app
-RUN mix local.hex --force
-RUN mix local.rebar --force
-RUN mix deps.get --force
-RUN mix release
+COPY shurly/ /app
+RUN mix local.hex --force && \
+    mix local.rebar --force && \
+    mix deps.get --force && \
+    mix release
 CMD ["_build/dev/rel/shurly/bin/shurly", "start"]

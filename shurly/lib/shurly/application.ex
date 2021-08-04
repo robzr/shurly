@@ -6,14 +6,14 @@ defmodule Shurly.Application do
       Plug.Cowboy.child_spec(
         scheme: :http,
         plug: Shurly.Endpoint,
-        options: [port: Shurly.Config.shurly_port]
+        options: [port: Shurly.Config.shurly_port()]
       ),
-      {Redix, {Shurly.Config.redis_url, [name: :redix]}}
+      {Redix, {Shurly.Config.redis_url(), [name: :redix]}}
     ]
 
     opts = [strategy: :one_for_one, name: Shurly.Supervisor]
 
-    Logger.configure([level: :info])
+    Logger.configure(level: :info)
 
     Supervisor.start_link(children, opts)
   end
