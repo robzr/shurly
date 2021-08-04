@@ -6,7 +6,7 @@ defmodule Shurly.Application do
       Plug.Cowboy.child_spec(
         scheme: :http,
         plug: Shurly.Endpoint,
-        options: [port: Shurly.Config.shurly_port()]
+        options: [port: Shurly.Config.port()]
       ),
       {Redix, {Shurly.Config.redis_url(), [name: :redix]}}
     ]

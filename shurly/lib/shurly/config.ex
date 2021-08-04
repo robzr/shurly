@@ -9,11 +9,24 @@ defmodule Shurly.Config do
     end
   end
 
+  def max_slug_length do
+    # If we are getting collisions with 60 bits, it's a bug
+    10
+  end
+
   def min_slug_length do
     if env_val = System.get_env("SHURLY_MIN_SLUG_LENGTH") do
       String.to_integer(env_val)
     else
       5
+    end
+  end
+
+  def port do
+    if env_val = System.get_env("SHURLY_PORT") do
+      String.to_integer(env_val)
+    else
+      8080
     end
   end
 
@@ -29,13 +42,5 @@ defmodule Shurly.Config do
 
   def redis_url do
     System.get_env("REDIS_URL") || "redis://localhost:6379"
-  end
-
-  def shurly_port do
-    if env_val = System.get_env("SHURLY_PORT") do
-      String.to_integer(env_val)
-    else
-      8080
-    end
   end
 end
