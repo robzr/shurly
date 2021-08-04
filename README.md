@@ -53,6 +53,7 @@ shurly_validate_slug KhtAJ http://example.com/ && echo Matches\! || echo No Matc
 
 ## Endpoints
 ### `GET /v1/url` - get server settings
+Response:
 ```
 {
   "hashing_algorithm": "sha256",
@@ -67,7 +68,7 @@ Data:
   "url": "http://example.com/"
 }
 ```
-Returns:
+Response:
 ```
 {
   "slug": "KhtAJ"
@@ -75,7 +76,7 @@ Returns:
 ```
 
 ### `GET /v1/url/<slug>` - get URL in JSON format
-Returns:
+Response:
 ```
 {
   "url": "http://example.com/"
